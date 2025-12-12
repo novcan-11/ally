@@ -1,3 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chat Bucin 💌</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #ffe6f2;
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .chat-container {
+        width: 90%;
+        max-width: 450px;
+        background: white;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(255, 80, 125, .3);
+    }
+
+    #chat {
+        height: 300px;
+        overflow-y: auto;
+        border-radius: 15px;
+        padding: 10px;
+        background: #fff3fa;
+        margin-bottom: 15px;
+    }
+
+    .bubble {
+        max-width: 75%;
+        padding: 10px 14px;
+        border-radius: 15px;
+        margin: 6px 0;
+        animation: pop .3s ease;
+    }
+
+    .me {
+        background: #ffb6d6;
+        margin-left: auto;
+    }
+
+    .bot {
+        background: #ffd9e8;
+        margin-right: auto;
+    }
+
+    @keyframes pop {
+        from { transform: scale(.7); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 12px;
+        border: 2px solid #ff9fc7;
+        outline: none;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        background: #ff5f9e;
+        color: white;
+        margin-top: 10px;
+        font-size: 16px;
+        border-radius: 12px;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(255, 92, 143, 0.5);
+    }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+</style>
+</head>
+
+<body>
+
+<div class="chat-container">
+    <div id="chat"></div>
+
+    <input type="text" id="inputMsg" placeholder="Tulis pesanmu..." />
+    <button onclick="sendMessage()">Kirim 💗</button>
+</div>
+
 <script>
 // daftar balasan lebih santai & manja
 const replies = {
@@ -57,10 +151,10 @@ function sendMessage() {
     addBubble(msg, "me");
     document.getElementById("inputMsg").value = "";
 
-    // tampilkan typing...
+    // muncul typing...
     setTimeout(showTyping, 400);
 
-    // bot membalas
+    // bot balas
     setTimeout(() => {
         removeTyping();
         addBubble(autoReply(msg), "bot");
@@ -77,3 +171,6 @@ function addBubble(text, type) {
     chat.scrollTop = chat.scrollHeight;
 }
 </script>
+
+</body>
+</html>

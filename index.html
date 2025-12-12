@@ -2,111 +2,145 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Message For You 💌</title>
+<title>Chat Bucin 💌</title>
 <style>
     body {
         margin: 0;
         padding: 0;
-        background: linear-gradient(135deg, #ffd6e8, #ffeaf3);
-        height: 100vh;
+        background: #ffe6f2;
+        font-family: "Poppins", sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: 'Poppins', sans-serif;
+        height: 100vh;
     }
 
-    .container {
+    .chat-container {
         width: 90%;
-        max-width: 400px;
+        max-width: 450px;
         background: white;
-        padding: 30px;
+        padding: 20px;
         border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(255, 90, 140, .3);
-        text-align: center;
+        box-shadow: 0 10px 25px rgba(255, 80, 125, .3);
     }
 
-    h2 {
-        color: #ff4f8b;
-        margin-bottom: 20px;
+    #chat {
+        height: 300px;
+        overflow-y: auto;
+        border-radius: 15px;
+        padding: 10px;
+        background: #fff3fa;
+        margin-bottom: 15px;
+    }
+
+    .bubble {
+        max-width: 75%;
+        padding: 10px 14px;
+        border-radius: 15px;
+        margin: 6px 0;
+        animation: pop .3s ease;
+    }
+
+    .me {
+        background: #ffb6d6;
+        margin-left: auto;
+    }
+
+    .bot {
+        background: #ffd9e8;
+        margin-right: auto;
+    }
+
+    @keyframes pop {
+        from { transform: scale(.7); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
     }
 
     input {
         width: 100%;
         padding: 12px;
-        border-radius: 10px;
-        border: 2px solid #ffb5cc;
+        border-radius: 12px;
+        border: 2px solid #ff9fc7;
         outline: none;
-        font-size: 16px;
-        margin-bottom: 15px;
-    }
-
-    input:focus {
-        border-color: #ff4f8b;
     }
 
     button {
         width: 100%;
         padding: 12px;
-        background: linear-gradient(135deg, #ff4f8b, #ff7391);
         border: none;
+        background: #ff5f9e;
         color: white;
-        font-size: 18px;
-        font-weight: bold;
-        border-radius: 50px;
+        margin-top: 10px;
+        font-size: 16px;
+        border-radius: 12px;
         cursor: pointer;
-        box-shadow: 0 6px 18px rgba(255, 77, 122, 0.5);
-        transition: .3s;
+        box-shadow: 0 5px 15px rgba(255, 92, 143, 0.5);
     }
 
     button:hover {
         transform: scale(1.05);
-        box-shadow: 0 10px 25px rgba(255, 77, 122, 0.7);
     }
-
-    .message-box {
-        margin-top: 25px;
-        padding: 15px;
-        background: #ffe6ef;
-        border-radius: 15px;
-        font-size: 17px;
-        color: #ff3b7a;
-        display: none;
-        animation: pop .4s ease;
-    }
-
-    @keyframes pop {
-        from { transform: scale(0.7); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-    }
-
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h2>Kirim Pesan Untuk Aku 💌</h2>
-    
-    <input type="text" id="msg" placeholder="Tulis pesanmu disini sayang..." />
+<div class="chat-container">
+    <div id="chat"></div>
 
-    <button onclick="sendMessage()">Kirim 💖</button>
-
-    <div class="message-box" id="output"></div>
+    <input type="text" id="inputMsg" placeholder="Tulis pesanmu..." />
+    <button onclick="sendMessage()">Kirim 💗</button>
 </div>
 
 <script>
-function sendMessage() {
-    let text = document.getElementById("msg").value;
-    let box  = document.getElementById("output");
+const replies = {
+    "hai": "Hai jugaa sayanggg 💗✨",
+    "kamu": "Aku? Selalu mikirin kamu kok 😳💕",
+    "love": "I love you moree, lebih dari yang kamu kira 💞",
+    "rindu": "Aku juga rindu, sini pelukk duluu 🤗💗",
+    "aku sayang kamu": "Aku lebih sayang kamuuu! 😘💗✨",
+};
 
-    if (text.trim() === "") {
-        box.style.display = "block";
-        box.innerHTML = "Ehh… pesannya kok kosong? 😳💗";
-        return;
+// fallback jawaban random lucu
+const randomReplies = [
+    "Ih kamu lucu banget sih 😳💗",
+    "Aku lagi senyum baca pesan kamu 😘",
+    "Apa pun pesannya, aku sukaaa 💞",
+    "Kamu bikin hari aku lebih manis ✨",
+    "Mikirin kamu gapernah bosen 💗",
+];
+
+function autoReply(msg) {
+    msg = msg.toLowerCase();
+
+    for (let key in replies) {
+        if (msg.includes(key)) return replies[key];
     }
 
-    box.style.display = "block";
-    box.innerHTML = "✨ Pesan kamu: <br><br><b>" + text + "</b> 💗";
+    return randomReplies[Math.floor(Math.random() * randomReplies.length)];
+}
+
+function sendMessage() {
+    const msg = document.getElementById("inputMsg").value;
+    if (msg.trim() === "") return;
+
+    addBubble(msg, "me");
+
+    document.getElementById("inputMsg").value = "";
+
+    setTimeout(() => {
+        addBubble(autoReply(msg), "bot");
+    }, 600);
+}
+
+function addBubble(text, type) {
+    const chat = document.getElementById("chat");
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble", type);
+    bubble.innerHTML = text;
+    chat.appendChild(bubble);
+
+    chat.scrollTop = chat.scrollHeight;
 }
 </script>
 

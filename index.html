@@ -1,120 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Chat Bucin 💌</title>
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        background: #ffe6f2;
-        font-family: "Poppins", sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-
-    .chat-container {
-        width: 90%;
-        max-width: 450px;
-        background: white;
-        padding: 20px;
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(255, 80, 125, .3);
-    }
-
-    #chat {
-        height: 300px;
-        overflow-y: auto;
-        border-radius: 15px;
-        padding: 10px;
-        background: #fff3fa;
-        margin-bottom: 15px;
-    }
-
-    .bubble {
-        max-width: 75%;
-        padding: 10px 14px;
-        border-radius: 15px;
-        margin: 6px 0;
-        animation: pop .3s ease;
-    }
-
-    .me {
-        background: #ffb6d6;
-        margin-left: auto;
-    }
-
-    .bot {
-        background: #ffd9e8;
-        margin-right: auto;
-    }
-
-    @keyframes pop {
-        from { transform: scale(.7); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-    }
-
-    input {
-        width: 100%;
-        padding: 12px;
-        border-radius: 12px;
-        border: 2px solid #ff9fc7;
-        outline: none;
-    }
-
-    button {
-        width: 100%;
-        padding: 12px;
-        border: none;
-        background: #ff5f9e;
-        color: white;
-        margin-top: 10px;
-        font-size: 16px;
-        border-radius: 12px;
-        cursor: pointer;
-        box-shadow: 0 5px 15px rgba(255, 92, 143, 0.5);
-    }
-
-    button:hover {
-        transform: scale(1.05);
-    }
-</style>
-</head>
-
-<body>
-
-<div class="chat-container">
-    <div id="chat"></div>
-
-    <input type="text" id="inputMsg" placeholder="Tulis pesanmu..." />
-    <button onclick="sendMessage()">Kirim 💗</button>
-</div>
-
 <script>
+// daftar balasan lebih santai & manja
 const replies = {
-    "hai": "Hai jugaa sayanggg 💗✨",
-    "kamu": "Aku? Selalu mikirin kamu kok 😳💕",
-    "love": "I love you moree, lebih dari yang kamu kira 💞",
-    "rindu": "Aku juga rindu, sini pelukk duluu 🤗💗",
-    "aku sayang kamu": "Aku lebih sayang kamuuu! 😘💗✨",
+    "hai": "haii sayang, kangen ga sama aku? 😚💕",
+    "kamu": "aku tuh kepikiran kamu terus tauu 😳💗",
+    "love": "love you moree beb 😘💞",
+    "rindu": "aku juga rinduu parah sama kamu 😭💕",
+    "sayang": "iya sayang? sini aku peluk 😚💗",
+    "aku sayang kamu": "aku lebih sayang kamuuu! ga ada obat 😤💗",
+    "beb": "iya beb? sini sini aku peluk 😘💕",
+    "lagi apa": "lagi mikirin kamu lahh, kerjaannya itu mulu 😌💗",
+    "miss u": "miss u moreee, sumpah 😩💞",
+    "mwah": "mwahh balik 100x 😘💕",
 };
 
-// fallback jawaban random lucu
+// fallback random reply
 const randomReplies = [
-    "Ih kamu lucu banget sih 😳💗",
-    "Aku lagi senyum baca pesan kamu 😘",
-    "Apa pun pesannya, aku sukaaa 💞",
-    "Kamu bikin hari aku lebih manis ✨",
-    "Mikirin kamu gapernah bosen 💗",
+    "ihh kamu kok gemes banget sihh 😭💗",
+    "aku senyum sendiri baca ini 😳💕",
+    "aku tuh kalo chat kamu langsung happy 😩💞",
+    "peluk dulu sini 🤗💗",
+    "kamu bikin hari aku lebih manis 😘✨",
 ];
+
+// typing indicator
+function showTyping() {
+    const chat = document.getElementById("chat");
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble", "bot");
+    bubble.setAttribute("id", "typing");
+    bubble.innerHTML = "•••";
+    chat.appendChild(bubble);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function removeTyping() {
+    const typing = document.getElementById("typing");
+    if (typing) typing.remove();
+}
 
 function autoReply(msg) {
     msg = msg.toLowerCase();
 
     for (let key in replies) {
-        if (msg.includes(key)) return replies[key];
+        if (msg.includes(key)) {
+            return replies[key];
+        }
     }
 
     return randomReplies[Math.floor(Math.random() * randomReplies.length)];
@@ -125,12 +55,16 @@ function sendMessage() {
     if (msg.trim() === "") return;
 
     addBubble(msg, "me");
-
     document.getElementById("inputMsg").value = "";
 
+    // tampilkan typing...
+    setTimeout(showTyping, 400);
+
+    // bot membalas
     setTimeout(() => {
+        removeTyping();
         addBubble(autoReply(msg), "bot");
-    }, 600);
+    }, 1300);
 }
 
 function addBubble(text, type) {
@@ -143,6 +77,3 @@ function addBubble(text, type) {
     chat.scrollTop = chat.scrollHeight;
 }
 </script>
-
-</body>
-</html>

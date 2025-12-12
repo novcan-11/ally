@@ -1,4 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ✨</title>
 <style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ffd6e8, #ffeaf3);
+        font-family: 'Poppins', sans-serif;
+        overflow: hidden;
+    }
+
+    .card {
+        text-align: center;
+        padding: 40px 50px;
+        background: white;
+        border-radius: 25px;
+        box-shadow: 0 10px 25px rgba(255, 90, 140, .2);
+        animation: fade 1.2s ease forwards;
+    }
+
+    @keyframes fade {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .cute-text {
+        font-size: 22px;
+        color: #ff4f8b;
+        font-weight: 600;
+        margin-bottom: 25px;
+    }
+
     .love-btn {
         padding: 14px 32px;
         background: linear-gradient(135deg, #ff4f8b, #ff7391);
@@ -11,33 +48,35 @@
         letter-spacing: 1px;
         box-shadow: 0 6px 18px rgba(255, 77, 122, 0.4);
         transition: all .3s ease;
-        position: relative;
-        overflow: hidden;
     }
 
     .love-btn:hover {
         transform: scale(1.08);
-        box-shadow: 0 8px 22px rgba(255, 77, 122, 0.6);
+        box-shadow: 0 10px 22px rgba(255, 77, 122, 0.6);
     }
 
-    .love-btn::before {
-        content: "";
-        position: absolute;
-        top: -80%;
-        left: -80%;
-        width: 260%;
-        height: 260%;
-        background: rgba(255, 255, 255, 0.25);
-        transform: rotate(45deg);
-        transition: 0.6s;
-    }
-
-    .love-btn:hover::before {
-        top: -10%;
-        left: -10%;
-    }
 </style>
+</head>
 
-<button class="love-btn">
-    💖 Klik Aku Sayang 💖
-</button>
+<body>
+    <div class="card" id="opening">
+        <div class="cute-text">Hai sayangkuu 💗<br>
+            Klik tombol di bawah yaa 😚✨</div>
+        <button class="love-btn" onclick="openPage()">💖 Buka Pesan 💖</button>
+    </div>
+
+    <div id="mainPage" style="display:none; text-align:center;">
+        <h1 style="color:#ff4f8b;">💗 Hai Sayang… 💗</h1>
+        <p style="font-size:20px;">Ini halaman utamanyaaa…  
+        aku sayang kamu banyak banget 😚💖</p>
+    </div>
+
+<script>
+function openPage() {
+    document.getElementById("opening").style.display = "none";
+    document.getElementById("mainPage").style.display = "block";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person 💗</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fbd3e9 0%, #bb377d 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            width: 85%;
+            max-width: 500px;
+            border-radius: 25px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1.3s ease-out;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 12px;
+            background: #ff9ac6;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 3px 10px rgba(255, 255, 255, 0.3);
+        }
+
+        button:hover {
+            transform: scale(1.08);
+            background: #ff78aa;
+        }
+
+        #reply {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        /* Floating hearts */
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 20px;
+            animation: floatUp 5s linear infinite;
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-800px); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>💗 Hai Kamu 💗</h1>
+        <p>
+            Dari semua hal indah di dunia ini…  
+            tetap saja, yang paling manis adalah **kamu**.  
+            Aku nggak tahu bagaimana caranya kamu selalu berhasil  
+            bikin hari aku jadi lebih hangat dan lebih berarti.  
+        </p>
+
+        <p style="margin-top:15px;">
+            Jujur… aku sayang banget sama kamu.  
+            Kayak… bener-bener sayang.  
+            Yang kalau aku inget kamu, hati aku ikut senyum sendiri. ✨
+        </p>
+
+        <button onclick="showLove()">Klik kalau kamu juga sayang 💞</button>
+        <div id="reply"></div>
+    </div>
+
+    <script>
+        function showLove() {
+            document.getElementById("reply").innerHTML = "Awww… aku juga sayang sama kamu. Banget. 💗🥺";
+        }
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.bottom = "0px";
+            heart.style.fontSize = (20 + Math.random() * 20) + "px";
+            heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 7000);
+        }
+
+        setInterval(createHeart, 400);
+    </script>
+
+</body>
+</html>

@@ -2,79 +2,111 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For You ✨</title>
+<title>Message For You 💌</title>
 <style>
     body {
         margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #ffd6e8, #ffeaf3);
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(135deg, #ffd6e8, #ffeaf3);
         font-family: 'Poppins', sans-serif;
-        overflow: hidden;
     }
 
-    .card {
-        text-align: center;
-        padding: 40px 50px;
+    .container {
+        width: 90%;
+        max-width: 400px;
         background: white;
-        border-radius: 25px;
-        box-shadow: 0 10px 25px rgba(255, 90, 140, .2);
-        animation: fade 1.2s ease forwards;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(255, 90, 140, .3);
+        text-align: center;
     }
 
-    @keyframes fade {
-        from { opacity: 0; transform: translateY(20px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .cute-text {
-        font-size: 22px;
+    h2 {
         color: #ff4f8b;
-        font-weight: 600;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
 
-    .love-btn {
-        padding: 14px 32px;
+    input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 2px solid #ffb5cc;
+        outline: none;
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    input:focus {
+        border-color: #ff4f8b;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
         background: linear-gradient(135deg, #ff4f8b, #ff7391);
         border: none;
-        border-radius: 50px;
         color: white;
         font-size: 18px;
-        font-weight: 600;
+        font-weight: bold;
+        border-radius: 50px;
         cursor: pointer;
-        letter-spacing: 1px;
-        box-shadow: 0 6px 18px rgba(255, 77, 122, 0.4);
-        transition: all .3s ease;
+        box-shadow: 0 6px 18px rgba(255, 77, 122, 0.5);
+        transition: .3s;
     }
 
-    .love-btn:hover {
-        transform: scale(1.08);
-        box-shadow: 0 10px 22px rgba(255, 77, 122, 0.6);
+    button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(255, 77, 122, 0.7);
+    }
+
+    .message-box {
+        margin-top: 25px;
+        padding: 15px;
+        background: #ffe6ef;
+        border-radius: 15px;
+        font-size: 17px;
+        color: #ff3b7a;
+        display: none;
+        animation: pop .4s ease;
+    }
+
+    @keyframes pop {
+        from { transform: scale(0.7); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
     }
 
 </style>
 </head>
 
 <body>
-    <div class="card" id="opening">
-        <div class="cute-text">Hai sayangkuu 💗<br>
-            Klik tombol di bawah yaa 😚✨</div>
-        <button class="love-btn" onclick="openPage()">💖 Buka Pesan 💖</button>
-    </div>
 
-    <div id="mainPage" style="display:none; text-align:center;">
-        <h1 style="color:#ff4f8b;">💗 Hai Sayang… 💗</h1>
-        <p style="font-size:20px;">Ini halaman utamanyaaa…  
-        aku sayang kamu banyak banget 😚💖</p>
-    </div>
+<div class="container">
+    <h2>Kirim Pesan Untuk Aku 💌</h2>
+    
+    <input type="text" id="msg" placeholder="Tulis pesanmu disini sayang..." />
+
+    <button onclick="sendMessage()">Kirim 💖</button>
+
+    <div class="message-box" id="output"></div>
+</div>
 
 <script>
-function openPage() {
-    document.getElementById("opening").style.display = "none";
-    document.getElementById("mainPage").style.display = "block";
+function sendMessage() {
+    let text = document.getElementById("msg").value;
+    let box  = document.getElementById("output");
+
+    if (text.trim() === "") {
+        box.style.display = "block";
+        box.innerHTML = "Ehh… pesannya kok kosong? 😳💗";
+        return;
+    }
+
+    box.style.display = "block";
+    box.innerHTML = "✨ Pesan kamu: <br><br><b>" + text + "</b> 💗";
 }
 </script>
 

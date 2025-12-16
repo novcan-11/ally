@@ -1,188 +1,178 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="UTF-8">
 <title>Chat Bucin 💌</title>
+
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        background: #ffe6f2;
-        font-family: "Poppins", sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffe6f2;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-    .chat-container {
-        width: 90%;
-        max-width: 450px;
-        background: white;
-        padding: 20px;
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(255, 80, 125, .3);
-    }
+/* CONTAINER */
+.chat-container {
+    width: 90%;
+    max-width: 450px;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(255, 80, 125, .3);
+}
 
-    #chat {
-        height: 300px;
-        overflow-y: auto;
-        border-radius: 15px;
-        padding: 10px;
-        background: #fff3fa;
-        margin-bottom: 15px;
-    }
+/* FOTO PACAR */
+.photo-box {
+    border: 2px solid #ff9fc7;
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 15px;
+    background: #fff3fa;
+}
 
-    .bubble {
-        max-width: 75%;
-        padding: 10px 14px;
-        border-radius: 15px;
-        margin: 6px 0;
-        animation: pop .3s ease;
-    }
+.photo-box img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(255, 80, 125, 0.4);
+}
 
-    .me {
-        background: #ffb6d6;
-        margin-left: auto;
-    }
+.photo-box p {
+    margin-top: 8px;
+    font-weight: bold;
+    color: #ff5f9e;
+}
 
-    .bot {
-        background: #ffd9e8;
-        margin-right: auto;
-    }
+/* CHAT */
+#chat {
+    height: 280px;
+    overflow-y: auto;
+    border-radius: 15px;
+    padding: 10px;
+    background: #fff3fa;
+    margin-bottom: 15px;
+}
 
-    @keyframes pop {
-        from { transform: scale(.7); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-    }
+.bubble {
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 15px;
+    margin: 6px 0;
+    animation: pop .3s ease;
+}
 
-    input {
-        width: 100%;
-        padding: 12px;
-        border-radius: 12px;
-        border: 2px solid #ff9fc7;
-        outline: none;
-    }
+.me {
+    background: #ffb6d6;
+    margin-left: auto;
+}
 
-    button {
-        width: 100%;
-        padding: 12px;
-        border: none;
-        background: #ff5f9e;
-        color: white;
-        margin-top: 10px;
-        font-size: 16px;
-        border-radius: 12px;
-        cursor: pointer;
-        box-shadow: 0 5px 15px rgba(255, 92, 143, 0.5);
-    }
+.bot {
+    background: #ffd9e8;
+    margin-right: auto;
+}
 
-    button:hover {
-        transform: scale(1.05);
-    }
+@keyframes pop {
+    from { transform: scale(.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* INPUT */
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px solid #ff9fc7;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #ff5f9e;
+    color: white;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 92, 143, 0.5);
+}
+
+button:hover {
+    transform: scale(1.05);
+}
 </style>
 </head>
 
 <body>
 
 <div class="chat-container">
+
+    <!-- FOTO PACAR -->
+    <div class="photo-box">
+        <img src="pacar.jpg" alt="Foto Pacar">
+        <p>💗 Pacar Aku 💗</p>
+    </div>
+
+    <!-- CHAT -->
     <div id="chat"></div>
 
+    <!-- INPUT -->
     <input type="text" id="inputMsg" placeholder="Tulis pesanmu..." />
     <button onclick="sendMessage()">Kirim 💗</button>
 </div>
 
 <script>
-// daftar balasan lebih santai & manja
+// BALASAN BUCIIN
 const replies = {
-    "hai": "haii sayang, kangen ga sama aku? 😚💕",
-    "kamu": "pokoknya kalau tentang kamu aku 100% suka 💗",
-    "love": "love you moree beb 😘💞",
-    "rindu": "aku juga rinduu parah sama kamu 😭💕",
-    "sayang": "iya sayang? sini aku peluk 😚💗",
-    "aku sayang kamu": "aku lebih sayang kamuuu! ga ada obat 😤💗",
-    "beb": "iya beb? sini sini aku peluk 😘💕",
-    "lagi apa": "lagi mikirin kamu lahh, kerjaannya itu mulu 😌💗",
-    "miss u": "miss u moreee, sumpah 😩💞",
-    "mwah": "mwahh balik 100x 😘💕",
-    "udah makan": "belum, suapin dongg kamu 🤤💗",
-    "lapar": "aku juga lapar.. lapar perhatian kamu 😩💕",
-    "kangen": "kangen kamu tuh udah kayak rutinitas 😭💗",
-    "p": "ppp sayanggg 😘💞",
-    "hehe": "hehe kenapa senyum2? mikirin aku yaaa 😳💗",
-    "ciyus": "ciyusss beneran, ga boong demi kamu 😤💕",
-    "bobo": "bobo dulu sana sayang, nanti aku susulin 😴💗",
-    "udah tidur": "belum.. aku nungguin kamu dulu 😘",
-    "peluk": "nih pelukk yang kencenggg 🤗💞",
-    "cium": "mmwaaahhh 😘😘😘💕",
-    "capek": "sini sayang, aku pijitin hati kamu dulu 😚💗",
-    "ngapain": "lagi nunggu chat dari kamu.. akhirnya dateng juga 😩💞",
-    "aku kangen kamu": "aku kangen kamu berkali-kali lipat 😭💗",
-    "kenapa": "gapapa.. cuma kangen kamu aja 😌💕",
-    "ganteng": "ciee ngakuin aku ganteng.. tapi kamu lebih cakep dari aku tau😏💗",
-    "cantik": "iyaa kamu tuh cantik banget, tau ga? 😳💞",
-    "bucin": "iya aku bucin banget sama kamu, mau apa? 😤💕",
-    "ya ampun": "kenapaa sayangggg 😭💗",
-    "serius": "seriusss banget, sumpah demi kamu 😘💞"
-    };
+    "hai": "haii sayanggg 😚💕",
+    "kangen": "kangen kamu tuh ga ada obatnya 😭💗",
+    "love": "love you moreee beb 😘💞",
+    "peluk": "sini aku peluk yang kenceng 🤗💞",
+    "cium": "mmwaaahhh 😘😘😘",
+    "capek": "sini aku temenin yaa sayang 😚💗",
+};
 
-// fallback random reply
 const randomReplies = [
-    "I don't know what to answer but you are so cute hehe :3😘✨",
+    "aku senyum sendiri baca chat kamu 😳💗",
+    "kamu tuh bikin aku jatuh cinta terus 😚💕",
+    "aku selalu ada buat kamu 🤍",
 ];
 
-// typing indicator
-function showTyping() {
-    const chat = document.getElementById("chat");
-    const bubble = document.createElement("div");
-    bubble.classList.add("bubble", "bot");
-    bubble.setAttribute("id", "typing");
-    bubble.innerHTML = "•••";
-    chat.appendChild(bubble);
-    chat.scrollTop = chat.scrollHeight;
-}
+function sendMessage() {
+    const input = document.getElementById("inputMsg");
+    const msg = input.value.trim();
+    if (!msg) return;
 
-function removeTyping() {
-    const typing = document.getElementById("typing");
-    if (typing) typing.remove();
+    addBubble(msg, "me");
+    input.value = "";
+
+    setTimeout(() => {
+        addBubble(autoReply(msg), "bot");
+    }, 1000);
 }
 
 function autoReply(msg) {
     msg = msg.toLowerCase();
-
     for (let key in replies) {
-        if (msg.includes(key)) {
-            return replies[key];
-        }
+        if (msg.includes(key)) return replies[key];
     }
-
     return randomReplies[Math.floor(Math.random() * randomReplies.length)];
-}
-
-function sendMessage() {
-    const msg = document.getElementById("inputMsg").value;
-    if (msg.trim() === "") return;
-
-    addBubble(msg, "me");
-    document.getElementById("inputMsg").value = "";
-
-    // muncul typing...
-    setTimeout(showTyping, 400);
-
-    // bot balas
-    setTimeout(() => {
-        removeTyping();
-        addBubble(autoReply(msg), "bot");
-    }, 1300);
 }
 
 function addBubble(text, type) {
     const chat = document.getElementById("chat");
     const bubble = document.createElement("div");
-    bubble.classList.add("bubble", type);
+    bubble.className = `bubble ${type}`;
     bubble.innerHTML = text;
     chat.appendChild(bubble);
-
     chat.scrollTop = chat.scrollHeight;
 }
 </script>
